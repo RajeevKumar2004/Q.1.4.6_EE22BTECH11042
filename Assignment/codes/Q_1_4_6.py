@@ -60,22 +60,26 @@ plt.plot(x_circ[0,:],x_circ[1,:],label='$circumcircle$')
 
 
 #Labeling the coordinates
-tri_coords = np.vstack((A,B,C,O)).T
+A = A.reshape(-1,1)
+B = B.reshape(-1,1)
+C = C.reshape(-1,1)
+O = O.reshape(-1,1)
+tri_coords = np.block([[A,B,C,O]])
 plt.scatter(tri_coords[0,:], tri_coords[1,:])
-vert_labels = ['O','A','C','B','I']
+vert_labels = ['A','B','C','O']
 for i, txt in enumerate(vert_labels):
-    plt.annotate(txt, 
-                 (tri_coords[0,i-1], tri_coords[1,i-1]),
-                 textcoords="offset points", 
-                 xytext=(0,10), 
-                 ha='center')
+    plt.annotate(txt, # this is the text
+                 (tri_coords[0,i], tri_coords[1,i]), # this is the point to label
+                 textcoords="offset points", # how to position the text
+                 xytext=(0,10), # distance from text to points (x,y)
+                 ha='center') # horizontal alignment can be left, right or center
 
 plt.xlabel('$x$')
 plt.ylabel('$y$')
 plt.legend(loc='best')
 plt.grid() 
 plt.axis('equal')
-plt.savefig('plot.png')
+plt.savefig('fig_1.png')
 
 
 
